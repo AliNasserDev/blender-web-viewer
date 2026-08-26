@@ -4,15 +4,20 @@ A fully client-side web viewer for **Blender `.blend` files** — plus glTF, OBJ
 
 ## 🔗 Use it now — no install
 
-**https://alinasnerdev.github.io/blender-web-viewer/**
+**Live site:** `https://raw.githack.com/AliNasserDev/blender-web-viewer/gh-pages/index.html`
 
-Open the site and you're immediately in a working 3D viewer:
+Open it and you're immediately in a working 3D viewer:
 
 - **Demos ▾** menu loads a studio scene, a vertex-colored `.glb`, or a real **`.blend`** file with one click
 - Drag & drop any of `.blend / .glb / .gltf / .obj / .fbx / .stl / .ply / .dae` onto the page
 - Orbit with the mouse, `F` re-frames, `W` wireframe, `G` grid, `R` spin
 
-Every push to `main` rebuilds and redeploys the site automatically via GitHub Actions.
+> **Note:** the repo is public at `https://github.com/AliNasserDev/blender-web-viewer` and
+> auto-deploys to `https://alinasnerdev.github.io/blender-web-viewer/` on every push to `main`
+> (`.github/workflows/deploy.yml` → `gh-pages` branch). That `*.github.io` URL is currently
+> propagating on GitHub's backend (API reports `status: built` but the CDN still returns
+> “Site not found”). The `raw.githack.com` link above serves the *same* `gh-pages` branch
+> directly and is live today.
 
 ## 💻 Run locally instead
 
