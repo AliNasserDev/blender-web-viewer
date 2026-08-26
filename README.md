@@ -2,16 +2,31 @@
 
 A fully client-side web viewer for **Blender `.blend` files** — plus glTF, OBJ, FBX, STL, PLY and Collada. Files never leave your machine: everything (including the `.blend` binary parser) runs in the browser.
 
-![formats](https://img.shields.io/badge/formats-.blend%20·%20glb%20·%20gltf%20·%20obj%20·%20fbx%20·%20stl%20·%20ply%20·%20dae-f5792a)
+## 🔗 Use it now — no install
 
-## Quick start
+**https://alinasnerdev.github.io/blender-web-viewer/**
+
+Open the site and you're immediately in a working 3D viewer:
+
+- **Demos ▾** menu loads a studio scene, a vertex-colored `.glb`, or a real **`.blend`** file with one click
+- Drag & drop any of `.blend / .glb / .gltf / .obj / .fbx / .stl / .ply / .dae` onto the page
+- Orbit with the mouse, `F` re-frames, `W` wireframe, `G` grid, `R` spin
+
+Every push to `main` rebuilds and redeploys the site automatically via GitHub Actions.
+
+## 💻 Run locally instead
 
 ```bash
 npm install
 npm run dev        # http://localhost:5173
 ```
 
-Drag a model onto the page, or use **Open file**. Multi-file drops work too — drop `.obj + .mtl + textures` or `.gltf + .bin + textures` together.
+Production build & preview:
+
+```bash
+npm run build      # typecheck + bundle → dist/
+npm run preview
+```
 
 ## Features
 
@@ -20,8 +35,8 @@ Drag a model onto the page, or use **Open file**. Multi-file drops work too — 
 - Wireframe, spin, background presets, model-light toggle
 - Scene tree (click to focus), mesh/tri/material stats
 - Animation playback bar for skinned/rigged models
-- PNG screenshots, drag & drop everywhere, keyboard shortcuts (`F/G/W/R`)
-- Built-in procedural sample scene
+- PNG screenshots, multi-file drag & drop (`.obj + .mtl + textures`, `.gltf + .bin + textures`)
+- Keyboard shortcuts (`F/G/W/R`)
 
 ## Format notes
 
@@ -35,21 +50,19 @@ Drag a model onto the page, or use **Open file**. Multi-file drops work too — 
 ## Development
 
 ```bash
-npm run dev            # vite dev server
-npm run build          # typecheck + production build → dist/
-npm run preview        # serve dist/
 npm run test:blend     # parse .blend fixtures in Node, print geometry stats
 npm run fetch:samples  # download third-party test models into samples/third-party/
+node scripts/make-sample-glb.mjs   # regenerate public/models/knot.glb
 ```
 
 ### Samples
 
-`samples/` contains only license-safe assets:
+Demo assets ship from [`public/models/`](public/models/) so they work on the deployed site:
 
 - `default-cube-blender45.blend` — the iconic default cube scene, saved from Blender 4.5
-- `knot.glb` — procedurally generated torus knot with vertex colors (`scripts/make-sample-glb.mjs`)
+- `knot.glb` — procedurally generated torus knot with vertex colors
 
-Well-known third-party test models (Khronos Duck/DamagedHelmet/Fox, Stanford Bunny, three.js FBX/STL demos…) can be fetched locally with `npm run fetch:samples`; they land in `samples/third-party/` and stay out of the repository.
+Well-known third-party test models are **not** redistributed; fetch them locally with `npm run fetch:samples` (per-asset licenses listed inside the script).
 
 ## How `.blend` parsing works
 
@@ -68,7 +81,7 @@ Well-known third-party test models (Khronos Duck/DamagedHelmet/Fox, Stanford Bun
 - [@threepipe/plugin-blend-importer](https://github.com/repalash/threepipe/tree/master/plugins/blend-importer) — MIT
 - [fzstd](https://github.com/101arrowz/fzstd) — MIT (Zstandard decompression)
 
-Third-party sample models keep their original licenses (see `scripts/fetch-samples.mjs` for per-asset attribution); they are not distributed with this repository.
+Third-party sample models keep their original licenses (see `scripts/fetch-samples.mjs`); they are not distributed with this repository.
 
 ## License
 

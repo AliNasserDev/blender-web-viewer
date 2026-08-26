@@ -124,8 +124,8 @@ new DataView(binHeader).setUint32(0, bin.byteLength, true)
 new DataView(binHeader).setUint32(4, 0x004e4942, true) // 'BIN\0'
 
 const out = concat([new Uint8Array(header), new Uint8Array(jsonHeader), jsonChunk, new Uint8Array(binHeader), bin])
-writeFileSync(new URL('../samples/knot.glb', import.meta.url), out)
-console.log(`samples/knot.glb written (${out.byteLength} bytes, ${idxArr.length / 3} triangles)`)
+writeFileSync(new URL('../public/models/knot.glb', import.meta.url), out)
+console.log(`public/models/knot.glb written (${out.byteLength} bytes, ${idxArr.length / 3} triangles)`)
 
 // --- helpers --------------------------------------------------------------------
 function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]] }

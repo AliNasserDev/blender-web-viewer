@@ -111,7 +111,37 @@ el<HTMLInputElement>('file-input').addEventListener('change', e => {
     handleFiles((e.target as HTMLInputElement).files ?? [])
     ;(e.target as HTMLInputElement).value = ''
 })
-el('btn-sample').addEventListener('click', loadSample)
+
+async function loadFromUrl(url: string, label: string) {
+    try {
+        setLoading(true, `Fetching ${label}…`)
+        const res = await fetch(url)
+        if (!res.ok) throw new Error(`HTTP ${res.status} for ${label}`)
+        const blob = await res.blob()
+        await handleFiles([new File([blob], url.split('/').pop() ?? 'model')])
+    } catch (err) {
+        console.error(err)
+        toast(err instanceof Error ? err.message : String(err), 'error')
+        setLoading(false)
+    }
+}
+
+document.querySelectorAll<HTMLButtonElement>('[data-demo]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const demo = btn.dataset.demo
+        ;(btn.closest('details') as HTMLDetailsElement).open = false
+        if (demo === 'builtin') loadSample()
+        else if (demo) loadFromUrl(demo, demo.split('/').pop() ?? 'demo')
+    })
+})
+
+// close open dropdowns when clicking anywhere else
+document.addEventListener('click', e => {
+    const target = e.target as HTMLElement
+    document.querySelectorAll('details.menu[open]').forEach(menu => {
+        if (!menu.contains(target)) menu.removeAttribute('open')
+    })
+})
 
 el('btn-screenshot').addEventListener('click', () => {
     const a = document.createElement('a')
