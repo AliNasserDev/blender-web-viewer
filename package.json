@@ -1,0 +1,25 @@
+{
+  "name": "blend-web-viewer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Web-based 3D model viewer with client-side .blend file support",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test:blend": "tsx scripts/test-blend.mts",
+    "fetch:samples": "node scripts/fetch-samples.mjs"
+  },
+  "devDependencies": {
+    "@types/three": "^0.185.4",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2"
+  },
+  "dependencies": {
+    "fzstd": "^0.1.1",
+    "three": "^0.185.1"
+  }
+}

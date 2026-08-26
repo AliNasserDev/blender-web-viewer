@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+
+# third-party test models (fetch via `npm run fetch:samples`)
+samples/*
+!samples/README.md
+!samples/default-cube-blender45.blend
+!samples/knot.glb

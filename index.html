@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blend Viewer — 3D models in your browser</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317191d'/%3E%3Cpath d='M16 6l9 5v10l-9 5-9-5V11z' fill='none' stroke='%23f5792a' stroke-width='2'/%3E%3C/svg%3E" />
+</head>
+<body>
+    <header id="topbar">
+        <div class="brand">
+            <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+                <rect width="32" height="32" rx="7" fill="#17191d"/>
+                <path d="M16 6l9 5v10l-9 5-9-5V11z" fill="none" stroke="#f5792a" stroke-width="2"/>
+            </svg>
+            <span>Blend&nbsp;Viewer</span>
+        </div>
+
+        <button id="btn-open" class="btn btn-primary">Open file</button>
+        <button id="btn-sample" class="btn">Sample</button>
+
+        <div class="sep"></div>
+
+        <label class="check"><input type="checkbox" id="toggle-grid" checked /> Grid</label>
+        <label class="check"><input type="checkbox" id="toggle-wireframe" /> Wireframe</label>
+        <label class="check"><input type="checkbox" id="toggle-rotate" /> Spin</label>
+        <label class="check"><input type="checkbox" id="toggle-model-lights" checked /> Model lights</label>
+
+        <select id="select-background" class="select" title="Background">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="environment">Studio</option>
+        </select>
+
+        <div class="spacer"></div>
+
+        <button id="btn-reset-view" class="btn" title="Reset view (F)">⌖ Frame</button>
+        <button id="btn-screenshot" class="btn" title="Save PNG screenshot">📷 Shot</button>
+        <input type="file" id="file-input" multiple hidden
+               accept=".blend,.glb,.gltf,.obj,.fbx,.stl,.ply,.dae,.bin,.png,.jpg,.jpeg,.webp,.mtl" />
+    </header>
+
+    <div id="layout">
+        <aside id="sidebar">
+            <section>
+                <h2>Scene</h2>
+                <ul id="scene-tree"></ul>
+            </section>
+            <section>
+                <h2>Stats</h2>
+                <div id="stats-grid"></div>
+            </section>
+            <section>
+                <h2>Supported formats</h2>
+                <p class="hint">
+                    <b>.blend</b> is parsed fully client-side (js.blend).
+                    Meshes, materials &amp; lights are imported; modifiers,
+                    particles and packed textures are not evaluated.
+                    For full fidelity use Blender’s glTF exporter (<b>.glb</b>).
+                    Also supported: .glb / .gltf / .obj / .fbx / .stl / .ply / .dae —
+                    drop extra files together to resolve textures &amp; .bin.
+                </p>
+            </section>
+            <section>
+                <h2>Shortcuts</h2>
+                <p class="hint">
+                    <kbd>F</kbd> frame · <kbd>G</kbd> grid ·
+                    <kbd>W</kbd> wireframe · <kbd>R</kbd> spin ·
+                    drag = orbit · right-drag / scroll = pan / zoom
+                </p>
+            </section>
+        </aside>
+
+        <main id="viewport-wrap">
+            <div id="viewport"></div>
+
+            <div id="anim-bar" class="overlay-panel hidden">
+                <button id="anim-play" class="btn btn-icon">▶</button>
+                <input type="range" id="anim-scrub" min="0" max="1" step="0.001" value="0" />
+            </div>
+        </main>
+    </div>
+
+    <footer id="statusbar">
+        <span id="status-file">—</span>
+        <span id="status-format" class="badge"></span>
+        <span class="spacer"></span>
+        <span id="status-fps">— fps</span>
+    </footer>
+
+    <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <div class="loading-label">Loading…</div>
+    </div>
+
+    <div id="drop-overlay" class="hidden">
+        <div class="drop-box">
+            <div class="drop-icon">⬇</div>
+            Drop files to view<br />
+            <small>.blend · .glb · .gltf · .obj · .fbx · .stl · .ply · .dae</small>
+        </div>
+    </div>
+
+    <div id="toasts"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
